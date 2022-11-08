@@ -37,7 +37,7 @@ def distance(img, ARUCO_DICT, ARUCO_PARAMS):
         gray, ARUCO_DICT, parameters=ARUCO_PARAMS)
     if corners:
         # LOADING CAMERA CALIBRATION FILE
-        calib_data_path = "Code_py/Camera Callibration/calib_data/MultiMatrix.npz"
+        calib_data_path = "Camera Callibration\calib_data\MultiMatrix.npz"
         calib_data = np.load(calib_data_path)
         camera_matrix = calib_data["camMatrix"]
         distance_coefficient = calib_data["distCoef"]

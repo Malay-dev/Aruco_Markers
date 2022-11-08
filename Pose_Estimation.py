@@ -38,7 +38,7 @@ def pose(img, ARUCO_DICT, ARUCO_PARAMS):
         gray, ARUCO_DICT, parameters=ARUCO_PARAMS)
     if corners:
         # LOADING CAMERA CALIBRATION FILE
-        calib_data_path = "Code_py/Camera Callibration/calib_data/MultiMatrix.npz"
+        calib_data_path = "Camera Callibration\calib_data\MultiMatrix.npz"
         calib_data = np.load(calib_data_path)
         camera_matrix = calib_data["camMatrix"]
         distance_coefficient = calib_data["distCoef"]
@@ -47,21 +47,21 @@ def pose(img, ARUCO_DICT, ARUCO_PARAMS):
             corners, MARKER_SIZE, camera_matrix, distance_coefficient
         )
         for i in range(ids.size):
-            cv2.drawFrameAxes(gray, camera_matrix,
+            cv2.drawFrameAxes(img, camera_matrix,
                               distance_coefficient,  rVec[i], tVec[i], 4, 4)
-        if corners:
-            corners = np.array(corners)[0]
-            bottom_right = corners[0][2][0], corners[0][2][1]
-            cv2.putText(
-                img,
-                f"x:{round(tVec[i][0][0],1)} y: {round(tVec[i][0][1],1)} ",
-                np.array(bottom_right).astype(int),
-                cv2.FONT_HERSHEY_PLAIN,
-                1.0,
-                (0, 0, 255),
-                2,
-                cv2.LINE_AA,
-            )
+            if corners:
+                corners = np.array(corners)[0]
+                bottom_right = corners[0][2][0], corners[0][2][1]
+                cv2.putText(
+                    img,
+                    f"x:{round(tVec[i][0][0],1)} y: {round(tVec[i][0][1],1)} ",
+                    np.array(bottom_right).astype(int),
+                    cv2.FONT_HERSHEY_PLAIN,
+                    1.0,
+                    (0, 0, 255),
+                    2,
+                    cv2.LINE_AA,
+                )
 
 
 while True:
